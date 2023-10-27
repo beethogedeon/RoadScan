@@ -112,3 +112,31 @@ async def run(image: bytes = File(...)):
     detected_image = image_detector(request_image)
 
     return StreamingResponse(content=image_to_bytes(detected_image), media_type="image/jpeg")
+
+
+@api.post("/detect_from_video", tags=["Detection"])
+async def run(video: UploadFile = File(...)):
+    video_url = video.file.read()
+
+    return StreamingResponse(video_detector(video_url), media_type="multipart/x-mixed-replace; boundary=frame")
+
+
+@api.get("/detect_from_webcam", tags=["Detection"])
+async def run(index: int = 0):
+    return StreamingResponse(webcam_detector(index), media_type="multipart/x-mixed-replace; boundary=frame")
+
+
+@api.websocket("/detect_from_webcam_ws")
+async def run(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        try:
+            frame = webcam_detector(0)
+            await websocket.send(frame)
+        except Exception as e:
+            logger.error(e)
+            break
+
+    await websocket.close()
+
+# Route for detecting objects in a video stream

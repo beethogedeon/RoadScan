@@ -100,7 +100,6 @@ def draw_detections(image, boxes, scores, class_ids, mask_alpha=0.3):
         draw_text(det_img, caption, box, color, font_size, text_thickness)
 
     det_image = Image.fromarray(det_img)
-    det_image.save("./det.png")
 
     return det_img
 

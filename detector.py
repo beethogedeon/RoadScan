@@ -11,7 +11,7 @@ from PIL import Image
 
 # Initialize yolov8 object detector
 model_path = "weights/detector.onnx"
-yolov8_detector = YOLOv8(model_path, conf_thres=0.5, iou_thres=0.5)
+yolov8_detector = YOLOv8(model_path, conf_thres=0.3, iou_thres=0.3)
 
 
 # Read image
