@@ -53,11 +53,8 @@ def image_detector(image):
 #    cv2.waitKey(0)
 
 
-def video_detector(video_url):
-    if "https://youtu" in video_url:
-        cap = cap_from_youtube(video_url, resolution='720p')
-    else:
-        cap = cv2.VideoCapture(video_url)
+def video_detector(video: bytes):
+    cap = cv2.VideoCapture(video)
 
     start_time = 1  # skip first {start_time} seconds
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_time * cap.get(cv2.CAP_PROP_FPS))
