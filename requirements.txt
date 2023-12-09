@@ -12,3 +12,4 @@ pytest-cov
 numpy
 Pillow
 pydantic
+python-multipart
